@@ -4,11 +4,11 @@
 // input: [[3,4],[1,2],[]]
 // output: [[[1,3,4],[2],[]], [[3,4],[2],[1]], [[4],[1,2],[3]]]
 
-List<List> hanoi(List<List> towers) {
+List<List> hanoi(List<List<int>> towers) {
   List<List> towersPossibleOutput = [];
   //lets assume there are only 3 towers
   for (int i = 0; i < 3; i++) {
-    if(towers[i].isEmpty){
+    if (towers[i].isEmpty) {
       continue;
     }
     int discToMove = towers[i].first;
@@ -18,10 +18,9 @@ List<List> hanoi(List<List> towers) {
         continue;
       }
       if (towers[j].isEmpty || discToMove < towers[j].first) {
-        List temp=copyList(towers);
         towers[i].removeAt(0);
-        towers[j].insert(0, discToMove);
-        print('towers $i: $towers'); //#debug
+        towers[j].insert(0, discToMove); // x=5
+//        print('towers $i: $towers'); //#debug
         towersPossibleOutput.add(copyList(towers));
         towers[j].removeAt(0);
         towers[i].insert(0, discToMove);
@@ -33,16 +32,14 @@ List<List> hanoi(List<List> towers) {
   return towersPossibleOutput;
 }
 
-List copyList(List copyFrom) {
-  List copyTo = [];
-  copyFrom.forEach((item) => copyTo.add(item));
+// input: [[3,4],[1,2],[]]
+List<List<int>> copyList(List<List<int>> copyFrom) {
+  List<List<int>> copyTo = [];
+  for (List<int> list in copyFrom) {
+    List<int> tempList = List.from(list);
+    copyTo.add(tempList);
+  }
   return copyTo;
 }
 
-main() {
-  print(hanoi([
-    [3, 4],
-    [1, 2],
-    []
-  ]));
-}
+main() {}
